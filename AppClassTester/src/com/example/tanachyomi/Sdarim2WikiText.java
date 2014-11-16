@@ -1,33 +1,54 @@
 package com.example.tanachyomi;
 
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+
 
 
 
 public class Sdarim2WikiText {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args)
 	{
-		FileInputStream in = null;
-		FileOutputStream out = null;
+		
 
-		try
+		try 
 		{
-			in = new FileInputStream("input.txt");
-			out = new FileOutputStream("output.txt");
-			int c;
-			while ((c = in.read()) != -1)
+			BufferedReader in = new BufferedReader(new FileReader("input.txt"));
+			Writer out = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("output.txt"), "UTF8"));
+			String line = in.readLine();
+			String str="";
+			while (line!=null)
 			{
-				out.write(c);
+				str += line+"\n";
+				line = in.readLine();
 			}
+			str=str.replaceAll("\n\n","\n");
+			String[] arr = str.split("\n");
+			String book="";
+			for (String s:arr)
+			{
+				System.out.println(s.indexOf(")"));
+				if (s.indexOf(")")==0)book = s;
+				System.out.println(s);
+				
+			}
+			out.write(str);
+			out.close();
 		} 
-		catch (Exception e) 
+		catch (Exception e1) 
 		{
-			e.printStackTrace();
+
+			e1.printStackTrace();
 		}
-
 	}
-
 }
