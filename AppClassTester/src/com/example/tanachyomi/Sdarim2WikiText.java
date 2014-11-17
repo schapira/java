@@ -37,9 +37,9 @@ public class Sdarim2WikiText {
 			String book="";
 			for (String s:arr)
 			{
-				System.out.println(s.indexOf(")"));
-				if (s.indexOf(")")==0)book = s;
-				System.out.println(s);
+			
+				if (s.indexOf(")")<0)book = s;
+				System.out.println(book);
 				
 			}
 			out.write(str);

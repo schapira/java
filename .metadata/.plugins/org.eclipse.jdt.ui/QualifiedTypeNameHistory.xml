@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.example.tanachyomi.R.id"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="net.sourceforge.zmanim.hebrewcalendar.JewishDate"/>
+<fullyQualifiedTypeName name="com.example.tanachyomi.NachCalendar"/>
+<fullyQualifiedTypeName name="net.sourceforge.zmanim.hebrewcalendar.HebrewDateFormatter"/>
+<fullyQualifiedTypeName name="net.sourceforge.zmanim.hebrewcalendar.JewishCalendar"/>
+<fullyQualifiedTypeName name="org.cyberneko.html.filters.ElementRemover"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.io.Reader"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
+<fullyQualifiedTypeName name="org.cyberneko.html.filters.Writer"/>
+<fullyQualifiedTypeName name="org.omg.CORBA.portable.OutputStream"/>
+<fullyQualifiedTypeName name="org.cyberneko.html.HTMLConfiguration"/>
+<fullyQualifiedTypeName name="org.jsoup.Jsoup"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="org.jsoup.select.NodeVisitor"/>
+<fullyQualifiedTypeName name="org.jsoup.select.NodeTraversor"/>
+<fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>
