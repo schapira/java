@@ -41,8 +41,8 @@ public class Convert
 				out+=book+"|";
 				
 				current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-				out+=current;
-	
+				out+=clean(current);
+				System.out.println(prev);
 				out+="}}\nסוףקובץ";
 				prev =line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
 				

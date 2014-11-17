@@ -41,8 +41,8 @@ public class Convert
 				out+=book+"|";
 				
 				current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-				out+=current;
-	
+				out+=clean(current);
+				System.out.println(prev);
 				out+="}}\nסוףקובץ";
 				prev =line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
 				
@@ -63,12 +63,10 @@ public class Convert
 		writer.close();
     
 	}
-	public static String clean (String in)
+	public static String clean (String str)
 	{
-		String str = new String(in);
-		
-	//	str = str.replace("עזרא", "");
-	//	str = str.replace("נחמיה", "");
+		str = str.replace("עזרא", "");
+		str = str.replace("נחמיה", "");
 		str = str.replace("הושע", "");
 		str = str.replace("יואל", "");
 		str = str.replace("עמוס", "");

@@ -21,7 +21,7 @@ public class Convert
 		String out="";
 		int seder=0;
 		String prev="";
-		String current="";
+	
 		for (String line:lines)
 		{
 		//	System.out.println(line);
@@ -40,12 +40,20 @@ public class Convert
 				out+="{{דף סדר|";  ///תוכן
 				out+=book+"|";
 				
-				current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-				out+=current;
-	
+				out+=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
+				System.out.println(prev);
 				out+="}}\nסוףקובץ";
 				prev =line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-				
+				prev = prev.replace("עזרא", "");
+				prev = prev.replace("נחמיה", "");
+				prev = prev.replace("הושע", "");
+				prev = prev.replace("יואל", "");
+				prev = prev.replace("עמוס", "");
+				prev = prev.replace("עובדיה", "");
+				prev = prev.replace("מיכה", "");
+				prev = prev.replace("צפניה", "");
+				prev = prev.replace("חבקוק", "");
+				prev = prev.replace("זכריה", "");
 				
 
 			}
@@ -62,23 +70,6 @@ public class Convert
 		writer.println(out);
 		writer.close();
     
-	}
-	public static String clean (String in)
-	{
-		String str = new String(in);
-		
-	//	str = str.replace("עזרא", "");
-	//	str = str.replace("נחמיה", "");
-		str = str.replace("הושע", "");
-		str = str.replace("יואל", "");
-		str = str.replace("עמוס", "");
-		str = str.replace("עובדיה", "");
-		str = str.replace("מיכה", "");
-		str = str.replace("צפניה", "");
-		str = str.replace("חבקוק", "");
-		 str = str.replace("זכריה", "");
-		 return str;
-		
 	}
 	public static HashMap<Integer, String>  dic()
 	{
