@@ -1,0 +1,100 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
+public class Convert 
+{
+	
+	public static void main(String[] args) throws IOException
+	{
+		
+		PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
+		String[] lines = readLines("input.txt");
+		Map<String, Integer> dic = dic();
+		String book="";
+		String out="";
+		int seder=1;
+		for (String line:lines)
+		{
+		//	System.out.println(line);
+
+			if (line.indexOf(")")<0) 
+				{
+				book = line;
+				seder=1;
+				}
+			else
+			{
+				out+="\n";
+				out += "#####";//כותרת
+				out+=book+" סדר "+dic.get(seder)+"\n";
+				seder++;
+				out+="{{דף סדר|";  ///תוכן
+				out+=book+"|";
+				out+=line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
+				out+="}}\nסוףקובץ";
+			}
+		}
+		out=out.replace("|תרי עשר", "");
+		out = out.replace(",","");
+		out = out.replace("מלכים|", "מלכים ");
+		out = out.replace("שמואל|", "שמואל ");
+		out = out.replace("דברי הימים|", "דברי הימים ");
+		out= out.replace("עזרא ונחמיה|", "");
+		writer.println("#####תקציר ");
+		writer.println("הוספת סדרי הנך על ידי בוט");
+		writer.println("סוףקובץ");
+		writer.println(out);
+		writer.close();
+    
+	}
+	public static Map<String, Integer>  dic()
+	{
+		HashMap<String, Integer> dic = new HashMap<String, Integer>();
+		dic.put("א", 1);
+		dic.put("ב", 2);
+		dic.put("ג", 3);
+		dic.put("ד", 4);
+		dic.put("ה", 5);
+		dic.put("ו", 6);
+		dic.put("ז", 7);
+		dic.put("ח", 8);
+		dic.put("ט", 9);
+		dic.put("י", 10);
+		dic.put("כ", 20);
+		dic.put("ל", 30);
+		dic.put("מ", 40);
+		for (int j=10; j<=40;j+=10)
+		{
+			for (int i=1;i<10;i++)
+			{
+				dic.put(""+dic.get(j)+dic.get(i), i+j);
+			}
+		}
+		dic.put("טו", 15);
+		dic.put("טז", 16);
+System.out.println(dic.values());
+System.out.println(dic.get(new Integer(15)));
+
+System.out.println(dic.keySet());
+		return dic;
+		
+	}
+	 public static String[] readLines(String filename) throws IOException {
+	        FileReader fileReader = new FileReader(filename);
+	        BufferedReader bufferedReader = new BufferedReader(fileReader);
+	        ArrayList<String> lines = new ArrayList<String>();
+	        String line = null;
+	        while ((line = bufferedReader.readLine()) != null) {
+	            lines.add(line);
+	        }
+	        bufferedReader.close();
+	        return lines.toArray(new String[lines.size()]);
+	    }
+}
