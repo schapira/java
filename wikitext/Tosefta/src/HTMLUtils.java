@@ -15,7 +15,7 @@ public class HTMLUtils
 {
   public final static void main(String[] args) throws IOException// throws Exception
   {
-	  File input = new File("src/htmls/f6c.html");
+	  File input = new File("htmls/f44.html"); ////Tosefta/htmls/f16.html
 
 	  Document doc = Jsoup.parse(input, "windows-1255", "");
 	  PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
@@ -25,7 +25,7 @@ public class HTMLUtils
 
 	  writer.println(str);
 	  writer.close();
-	  //System.out.println(doc.text());
+	  System.out.println(doc.text());
   }
   private static String cleaning(Element element)
   {
@@ -45,7 +45,7 @@ public class HTMLUtils
 		 perek = koteret.substring(koteret.length()-1, koteret.length());
 		 next = (char) (perek.toCharArray()[0] +1);
 		 h2.text(koteret);
-		 h2.append("<div>{{תוספתא פרק|עוקצין|"+perek+"|"+prePerek+"|"+next+"}}");
+		 h2.append("<div>{{תוספתא פרק|סנהדרין|"+perek+"|"+prePerek+"|"+next+"}}");
 		 prePerek = perek;
 	 }
 
@@ -59,6 +59,7 @@ public class HTMLUtils
 	}
 
 	  String str = element.getElementsByTag("div").first().html().toString();
+	  str = str.replaceAll("/עורלה", "/ערלה");
 	  str = str.replaceAll("</b>&nbsp; ", "\n");
       str = str.replaceAll("<div>", " ");
       str = str.replaceAll("</div>", "");
@@ -80,11 +81,9 @@ public class HTMLUtils
 	  str = str.replaceAll("\n ", "\n");
 	  str = str.replaceAll("\n\n", "\n");
 	  str = str.replaceAll("# ", "#");
-	  str = str +"\nסוףקובץ\n";
-//	  
-//	  
-//	  
-	  
+	  //
+	  str = str.replaceAll("אע\"פ", "אף על פי");
+	  str = str +"\nסוףקובץ\n";  
 	  return str;
 	
   }

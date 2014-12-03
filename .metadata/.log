@@ -4274,3 +4274,84 @@ java.lang.ClassCastException: org.eclipse.osgi.internal.framework.EquinoxConfigu
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2014-11-17 14:14:47.412
 !MESSAGE Failed to load properties file for project 'appcompat_v7'
+!SESSION 2014-11-19 07:25:03.554 -----------------------------------------------
+eclipse.buildId=4.4.1.M20140925-0400
+java.version=1.7.0_72
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os linux -ws gtk -arch x86 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.configuration 2 0 2014-11-19 07:25:15.387
+!MESSAGE Exception while setting up logging:org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
+!STACK 0
+java.lang.ClassCastException: org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
+	at org.eclipse.m2e.logback.configuration.LogHelper.logJavaProperties(LogHelper.java:26)
+	at org.eclipse.m2e.logback.configuration.LogPlugin.loadConfiguration(LogPlugin.java:189)
+	at org.eclipse.m2e.logback.configuration.LogPlugin.configureLogback(LogPlugin.java:144)
+	at org.eclipse.m2e.logback.configuration.LogPlugin.access$2(LogPlugin.java:107)
+	at org.eclipse.m2e.logback.configuration.LogPlugin$1.run(LogPlugin.java:62)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-11-19 07:25:35.461
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project appcompat_v7
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-11-19 07:25:55.907
+!MESSAGE Failed to load properties file for project 'appcompat_v7'
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2014-11-19 07:26:04.147
+!MESSAGE Server returned lastModified <= 0 for http://market.eclipsesource.com/yoxos/mpc/latestrepo/org.eclipse.egit.feature.group/4.4.0.v20140925-0400/compositeContent.xml
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2014-11-19 07:26:12.991
+!MESSAGE Connection to http://www.ancitconsulting.com/gitHub-pr/p2.index failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:909)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:805)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1077)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1068)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1064)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:73)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: org.apache.http.client.CircularRedirectException: Circular redirect to 'http://www.ancitconsulting.com/gitHub-pr/tiki-index.php'
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:183)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:217)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1105)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:548)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:906)
+	... 6 more
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2014-11-19 07:26:29.927
+!MESSAGE Server returned lastModified <= 0 for http://market.eclipsesource.com/yoxos/mpc/latestrepo/org.eclipse.jdt.feature.group/4.4.0.v20140925-0400/compositeContent.xml
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2014-11-19 07:26:43.147
+!MESSAGE Server returned lastModified <= 0 for https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite/content.jar
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2014-11-19 07:28:02.592
+!MESSAGE Server returned lastModified <= 0 for http://market.eclipsesource.com/yoxos/mpc/latestrepo/org.eclipse.jdt.feature.group/4.4.0.v20140925-0400/compositeArtifacts.xml
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2014-11-19 07:28:23.253
+!MESSAGE Connection to http://www.ancitconsulting.com/gitHub-pr/p2.index failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:909)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:805)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1077)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1068)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1064)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:73)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: org.apache.http.client.CircularRedirectException: Circular redirect to 'http://www.ancitconsulting.com/gitHub-pr/tiki-index.php'
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:183)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:217)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1105)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:548)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:906)
+	... 6 more
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2014-11-19 07:28:33.429
+!MESSAGE Server returned lastModified <= 0 for http://market.eclipsesource.com/yoxos/mpc/latestrepo/org.eclipse.egit.feature.group/4.4.0.v20140925-0400/compositeArtifacts.xml
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2014-11-19 07:28:36.472
+!MESSAGE Server returned lastModified <= 0 for https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite/artifacts.jar

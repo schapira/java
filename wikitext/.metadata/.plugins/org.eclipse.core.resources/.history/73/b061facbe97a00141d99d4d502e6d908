@@ -1,0 +1,16 @@
+
+
+
+public class Main 
+{
+
+	public static void main(String[] args) 
+	{
+	    MediaWikiBot wikiBot = new MediaWikiBot("https://he.wikipedia.org/w/");
+	    Article article = wikiBot.getArticle("42");
+	    System.out.println(article.getText().substring(5, 42));
+	   // applyChangesTo(article);
+	    wikiBot.login("אור שפירא", "41249475");
+	    article.save();	}
+
+}
