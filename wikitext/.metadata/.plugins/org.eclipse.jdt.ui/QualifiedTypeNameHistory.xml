@@ -7,4 +7,5 @@
 <fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
 <fullyQualifiedTypeName name="net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot"/>
 <fullyQualifiedTypeName name="net.sourceforge.jwbf.core.contentRep.Article"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
 </qualifiedTypeNameHistroy>

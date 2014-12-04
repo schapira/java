@@ -5020,7 +5020,7 @@ public class Wiki implements Serializable
         if (xml.contains("title=\""))
             target = parseAttribute(xml, "title", 0);
 
-        String timestamp = convertTimestamp(parseAttribute(xml, "timestamp", 0));
+        String timestוamp = convertTimestamp(parseAttribute(xml, "timestamp", 0));
 
         // details: TODO: make this a HashMap
         Object details = null;
