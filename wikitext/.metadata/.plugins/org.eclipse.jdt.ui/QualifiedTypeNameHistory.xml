@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
 <fullyQualifiedTypeName name="org.jsoup.select.Elements"/>
 <fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
 <fullyQualifiedTypeName name="net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot"/>
-<fullyQualifiedTypeName name="net.sourceforge.jwbf.core.contentRep.Article"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="net.sourceforge.jwbf.core.contentRep.Article"/>
+<fullyQualifiedTypeName name="net.sourceforge.jwbf.core.contentRep.SimpleArticle"/>
+<fullyQualifiedTypeName name="net.sourceforge.jwbf.mediawiki.actions.queries.AllPageTitles"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>
