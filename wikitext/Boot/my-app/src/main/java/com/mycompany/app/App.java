@@ -19,32 +19,46 @@ import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
  */
 public class App 
 {
-    @SuppressWarnings({ "resource", "deprecation" })
+    final static MediaWikiBot BOT = new MediaWikiBot("https://he.wikisource.org/w/");
+    @SuppressWarnings({ "resource" })
 	public static void main( String[] args ) throws FileNotFoundException, UnsupportedEncodingException
     {
     
-        MediaWikiBot wikiBot = new MediaWikiBot("https://he.wikisource.org/w/");
+       // MediaWikiBot wikiBot = new MediaWikiBot("https://he.wikisource.org/w/");
      //   Article article = wikiBot.getArticle("משתמשת:אור שפירא");     
     //    System.out.println(article.getText());
         System.out.print("password:");
         Scanner input = new Scanner(System.in);
         String pswd = input.nextLine();
-       wikiBot.login("OrBoot", pswd);
+       BOT.login("OrBoot", pswd);
         System.out.println("logged in");
         String query="תוספתא/אוהלות";
-        Iterator<String> = searchList(wikiBot, query);
+        AllPageTitles pages = searchList(query);
+        applyChangesTo(pages);
+        
       //  article.save();
       }
-    private static Iterator<String> searchList(MediaWikiBot wikiBot, String query){
+    private static AllPageTitles searchList(String query){
     	RedirectFilter rf = RedirectFilter.nonredirects;
-    	 AllPageTitles pages = new AllPageTitles(wikiBot, null, query, rf);
-    	 pages.iterator();
-    	return pages.iterator();
+    	 AllPageTitles pages = new AllPageTitles(BOT, null, query, rf);
+    	return pages;
 
 
     }
-      static void applyChangesTo(Article article) {
-        // edits the article...
+      private static void applyChangesTo(AllPageTitles pages) {
+        Iterator<String> it = pages.iterator();
+        int i = 0; //run only once
+        while (it.hasNext()&&(i<1)){
+        	i++;
+        	Article page = BOT.getArticle(it.next());
+        	change(page);
+        }
     	
     }
+	private static void change(Article page) {
+		String newTitle = page.getTitle().replace("אוהלות", "אהלות");
+		Article moveto = BOT.getArticle(newTitle);
+		// TODO continue here
+		
+	}
 }
