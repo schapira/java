@@ -21,26 +21,53 @@ public class App
 {
     final static MediaWikiBot BOT = new MediaWikiBot("https://he.wikisource.org/w/");
    static PrintWriter log;
-    @SuppressWarnings({ "resource" })
+   static Scanner input;
+   /**
+    * Main method
+    * @param args
+    * @throws FileNotFoundException
+    * @throws UnsupportedEncodingException
+    */
 	public static void main( String[] args ) throws FileNotFoundException, UnsupportedEncodingException
     {
-    	 log = new PrintWriter("log.txt", "UTF-8");
-       // MediaWikiBot wikiBot = new MediaWikiBot("https://he.wikisource.org/w/");
-     //   Article article = wikiBot.getArticle("משתמשת:אור שפירא");     
-    //    System.out.println(article.getText());
-         System.out.print("username:");
-         Scanner input = new Scanner(System.in);
-         String username =input.nextLine();
-        System.out.print("password:");
-         input = new Scanner(System.in);
-        String pswd = input.nextLine();
-        if (username == "bot") username = "OrBoot";
-       BOT.login(username, pswd);
-        System.out.println("logged in");
+    	 init();
+    	 login(); 
         ohalot();
-        log.close();
-        System.out.println("end, read log for details");
+        finish();
       }
+	/**
+	 * initialization of static objects
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
+	private static void init() throws FileNotFoundException, UnsupportedEncodingException{
+		input = new Scanner(System.in);
+		log = new PrintWriter("log.txt", "UTF-8"); 
+	}
+	/**
+	 * close open objects
+	 * print end message
+	 */
+	private static void finish(){
+		 log.close();
+	        System.out.println("end, read log for details");
+	}
+	/**
+	 * login into he.wikisource
+	 */
+    private static void login()
+    {
+    	   System.out.print("username:");	
+           String username =input.nextLine();
+          System.out.print("password:");
+          String pswd = input.nextLine();
+          if (username == "bot") username = "OrBoot";
+         BOT.login(username, pswd);
+          System.out.println("logged in");
+    }
+    /**
+     * main method of add pages redirect to OHALOT
+     */
     private static void ohalot() {
         String query="תוספתא/אוהלות";
         AllPageTitles pages = searchList(query);
@@ -81,7 +108,5 @@ public class App
 			log.println(newTitle+"not empty, doing nothings");
 		}
 		log.println("end of change one page");
-		// TODO continue here
-		
 	}
 }
