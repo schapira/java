@@ -17,7 +17,7 @@ import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
  * Hello world!
  *
  */
-public class App 
+public class Ohalot
 {
     final static MediaWikiBot BOT = new MediaWikiBot("https://he.wikisource.org/w/");
    static PrintWriter log;

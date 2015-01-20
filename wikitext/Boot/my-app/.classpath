@@ -22,5 +22,24 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="/home/or/.m2/repository/com/google/guava/guava/18.0/guava-18.0.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.google.guava"/>
+			<attribute name="maven.artifactId" value="guava"/>
+			<attribute name="maven.version" value="18.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/or/.m2/repository/net/sourceforge/jwbf/3.1.0/jwbf-3.1.0.jar" sourcepath="/home/or/.m2/repository/net/sourceforge/jwbf/3.1.0/jwbf-3.1.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="net.sourceforge"/>
+			<attribute name="maven.artifactId" value="jwbf"/>
+			<attribute name="maven.version" value="3.1.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
