@@ -24,6 +24,8 @@ public class DaatHitzoniim {
 		File inputFile = new File("hayovlim/1.html");
 		  Document doc = Jsoup.parse(inputFile, "windows-1255", "");
 		  PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
+		  String output = doc.body().text();
+		  output = removeNeedlessWords(output);
 		  writer.println(doc.body().text());
 		  writer.close();
 		  finish();
@@ -34,5 +36,13 @@ public class DaatHitzoniim {
 	private static void finish (){
 		log.close();
 	}
+	private static String removeNeedlessWords (String infile){
+		String str=infile.substring(0);
+		//TODO continue here
+		
+		return str;
+		
+	}
+	
 
 }
