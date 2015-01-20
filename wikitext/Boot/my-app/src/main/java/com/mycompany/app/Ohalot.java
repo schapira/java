@@ -74,12 +74,21 @@ public class Ohalot
         applyChangesTo(pages); 
         log.println("end of ohalot");
     }
+    /**
+     * find all relevant pages 
+     * @param query
+     * @return list of pages 
+     */
     private static AllPageTitles searchList(String query){
     	RedirectFilter rf = RedirectFilter.nonredirects;
     	 AllPageTitles pages = new AllPageTitles(BOT, null, query, rf);
     	 log.println("end of searchlist");
     	return pages;
     }
+    /**
+     * change all the pages
+     * @param pages
+     */
       private static void applyChangesTo(AllPageTitles pages) {
         Iterator<String> it = pages.iterator();
 
@@ -90,6 +99,10 @@ public class Ohalot
         }
         log.println("end of applyCahnge to all pages");    	
     }
+      /**
+       * change single page
+       * @param page
+       */
 	private static void change(Article page) {
 		String firstTitle = page.getTitle();
 		String newTitle = firstTitle.replace("אוהלות", "אהלות");
