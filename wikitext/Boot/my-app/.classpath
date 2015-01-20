@@ -41,5 +41,6 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/Tosefta"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
