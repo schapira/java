@@ -1,10 +1,7 @@
 package com.mycompany.app;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 /**
@@ -22,22 +19,37 @@ public class DaatHitzoniim {
 	private static PrintWriter log;
 	public static void main( String[] args ) throws Exception{
 		init();
-		File inputFile = new File("hayovlim/1.html");
-		Document doc = Jsoup.parse(inputFile, "windows-1255", "");
-		String output = doc.body().text();
-		output = removeNeedlessWords(output);
-		ConvertToErelBotFormat page = new ConvertToErelBotFormat("title", output, new File("output.txt"), "ספר יובלים - הזנה אוטומטית, אור שפירא");
+		doAllPages();
+		close();
+	}
+	private static void doAllPages() throws Exception  {
+		File file = new File("hayovlim/1.html");
+		String body = doOnePage(file);
+		String fileName =file.getName();
+		fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+		System.out.println(fileName);
+		ConvertToErelBotFormat page = new ConvertToErelBotFormat(fileName, body, new File("output.txt"), "ספר יובלים - הזנה אוטומטית, אור שפירא");
 		page.addToFile();
 		ConvertToErelBotFormat.close();
-		close();
+	}
+	/**
+	 * 
+	 * @param file
+	 * @return the current file in string format
+	 * @throws Exception
+	 */
+	private static String doOnePage(File file) throws Exception  {
+		Document doc = Jsoup.parse(file, "windows-1255", "");
+		String output = doc.body().text();
+		output = removeNeedlessChars(output);
+		return output;
 	}
 	/**
 	 * Initialization of log
-	 * @throws FileNotFoundException
-	 * @throws UnsupportedEncodingException
 	 */
-	private static void init () throws FileNotFoundException, UnsupportedEncodingException{
-		log = new PrintWriter("log.txt", "UTF-8");
+	private static void init () {
+		try {log = new PrintWriter("log.txt", "UTF-8");
+		} catch (Exception e) {	e.printStackTrace();	} 
 	}
 	/**
 	 * close log print end to console
@@ -53,7 +65,7 @@ public class DaatHitzoniim {
 	 * @param infile
 	 * @return cleaned string
 	 */
-	private static String removeNeedlessWords (String infile){
+	private static String removeNeedlessChars (String infile){
 		String str=infile.substring(0);
 		log.print("removeNeedlessWords");
 		str = str.replaceAll(",", "");

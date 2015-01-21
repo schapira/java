@@ -13,15 +13,13 @@ import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
  */
 @SuppressWarnings("serial")
 public class ConvertToErelBotFormat extends SimpleArticle {
-
 	//FINALES
 	private final static String EOF = "סוףקובץ";
 	private final static String SUMMARY_TITLE = "תקציר";
 	private final static String START_OF_TITLE = "#####";
-	//-----------------------------------------------	
+	/*-----------------------------------------------	*/
 	//STATICS
 	private static PrintWriter log;
-	//private static File file;
 	private static boolean isSummary=false;
 	private static PrintWriter pFile;
 	/*----------------------------------------------*/
