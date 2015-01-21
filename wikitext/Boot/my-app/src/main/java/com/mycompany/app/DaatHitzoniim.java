@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 /**
@@ -20,16 +21,16 @@ public class DaatHitzoniim {
 	 * @throws IOException 
 	 */
 	private static PrintWriter log;
-	public static void main( String[] args ) throws IOException{
+	public static void main( String[] args ) throws Exception{
 		init();
 		File inputFile = new File("hayovlim/1.html");
 		Document doc = Jsoup.parse(inputFile, "windows-1255", "");
-		PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
 		String output = doc.body().text();
 		output = removeNeedlessWords(output);
-		writer.println(output);
-		writer.close();
-		finish();
+		ConvertToErelBotFormat page = new ConvertToErelBotFormat("title", output, new File("output.txt"), "ספר יובלים - הזנה אוטומטית, אור שפירא");
+		page.addToFile();
+		ConvertToErelBotFormat.close();
+		close();
 	}
 	/**
 	 * Initialization of log
@@ -42,15 +43,16 @@ public class DaatHitzoniim {
 	/**
 	 * close log print end to console
 	 */
-	private static void finish (){
+	private static void close (){
 		log.println("end");
 		log.close();
 		System.out.println("end");
 	}
 	/**
-	 * cleaning string from ",.-[...](...)"
+	 * cleaning string from ",.-[...]"
+	 * convert (..) to titles
 	 * @param infile
-	 * @return clean string
+	 * @return cleaned string
 	 */
 	private static String removeNeedlessWords (String infile){
 		String str=infile.substring(0);
@@ -61,7 +63,8 @@ public class DaatHitzoniim {
 		str = str.replaceAll(":", "");
 		str = str.replaceAll("-", " ");
 		str = str.replaceAll("\\[.*?\\] ?", "");
-		str = str.replaceAll("\\(.*?\\) ?", "");
+		str = str.replaceAll("\\(", "\n==");
+		str = str.replaceAll("\\)", "==\n");
 		log.println(": done");
 		return str;
 

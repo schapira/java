@@ -11,6 +11,7 @@ import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
 /**
  * 
  * @author Or Schapira
+ * @bugs : summary isnt work curectlly, you need to edit it after running this code
  *
  */
 @SuppressWarnings("serial")
@@ -20,13 +21,13 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	private final static String EOF = "סוףקובץ";
 	private final static String SUMMARY_TITLE = "תקציר";
 	private final static String START_OF_TITLE = "#####";
-//-----------------------------------------------	
+	//-----------------------------------------------	
 	//STATICS
 	private static PrintWriter log;
 	private static File file;
 
 	private static PrintWriter pFile;
-/*----------------------------------------------*/
+	/*----------------------------------------------*/
 	/**
 	 * basic constructor
 	 * @param title
@@ -66,8 +67,9 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		addSummary(sum);
 	}
 	/*--------------------------------------------------*/
-	public void end(){
+	public static void close(){
 		log.close();
+		pFile.close();
 	}
 	/**
 	 * TODO QA
@@ -88,9 +90,10 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	 */
 	public static void addSummary() throws Exception{
 		addSummary("Added by bot"); 
+		log.println("auto summary added");
 	}
 	/**
-	 * TODO QA this method
+	 * TODO QA this method - THIS DOSENT WORK CORRECTLY
 	 * return if there is summary in the file, this will return true for an empty summary
 	 * @return true if had summary in the file
 	 */
@@ -98,8 +101,10 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line = br.readLine();
+			
 			if (line == null) {
 				br.close();
+				log.println(" isSummaryInFile() return false");
 				return false;
 			}
 			if (line.startsWith(START_OF_TITLE) && line.contains(SUMMARY_TITLE)){
@@ -129,21 +134,21 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	public static void setFile(File file, String sum) throws Exception {
 		pFile = new PrintWriter(file);
 		ConvertToErelBotFormat.file = file;
-		addSummary(sum);
+		if (!isSummaryInFile()) addSummary(sum);
+		log.println("file changed");
 	}
 	public static void setFile(File file) throws Exception {
-		setFile(file,"Added by bot");
+		setFile(file,"Added by bot");		
 	}
-
-public void addToFile(){
-	/*
-	 * TODO
-	 * this should add the current constant to the class file
+	/**
+	 * add the current constant to the class file
 	 */
-}
-
-	
-
-	
+	public void addToFile(){
+		if (!isSummaryInFile())	try {addSummary();	} catch (Exception e) {e.printStackTrace();	}
+		pFile.println(START_OF_TITLE+this.getTitle());
+		pFile.println(this.getText());
+		pFile.println(EOF);
+		log.println(this.getTitle()+ "added to file");
+	}
 
 }
