@@ -7,7 +7,11 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
+/**
+ * 
+ * @author Or Schapira
+ *
+ */
 
 public class DaatHitzoniim {
 	/**
@@ -15,7 +19,7 @@ public class DaatHitzoniim {
 	 * @param args
 	 * @throws IOException 
 	 */
-	static PrintWriter log;
+	private static PrintWriter log;
 	public static void main( String[] args ) throws IOException{
 		init();
 		File inputFile = new File("hayovlim/1.html");
@@ -28,7 +32,7 @@ public class DaatHitzoniim {
 		finish();
 	}
 	/**
-	 * niitialization of log
+	 * Initialization of log
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
