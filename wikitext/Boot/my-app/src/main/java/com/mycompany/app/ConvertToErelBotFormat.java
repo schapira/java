@@ -1,9 +1,7 @@
 package com.mycompany.app;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -11,7 +9,6 @@ import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
 /**
  * 
  * @author Or Schapira
- * @bugs : summary isnt work curectlly, you need to edit it after running this code
  *
  */
 @SuppressWarnings("serial")
@@ -24,8 +21,8 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	//-----------------------------------------------	
 	//STATICS
 	private static PrintWriter log;
-	private static File file;
-
+	//private static File file;
+	private static boolean isSummary=false;
 	private static PrintWriter pFile;
 	/*----------------------------------------------*/
 	/**
@@ -50,7 +47,8 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	 * @throws Exception 
 	 */
 	public ConvertToErelBotFormat(String title, String text, File newFile) throws Exception {
-		this(title, text, newFile,"Added by bot");
+		this(title, text);
+		pFile = new PrintWriter(newFile);
 	}
 	/**
 	 * constructor with file, this may change the file the all class is working on, use carefully
@@ -61,18 +59,16 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	 * @throws Exception 
 	 */
 	public ConvertToErelBotFormat(String title, String text, File newFile,String sum) throws Exception {
-		this(title, text);
-		file = newFile;
-		pFile = new PrintWriter(file);
+		this(title, text, newFile);
 		addSummary(sum);
 	}
 	/*--------------------------------------------------*/
 	public static void close(){
+		log.println("end");
 		log.close();
 		pFile.close();
 	}
 	/**
-	 * TODO QA
 	 * @throws Exception 
 	 */
 	public static void addSummary(String str) throws Exception{
@@ -81,6 +77,8 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 			pFile.println(SUMMARY_TITLE);
 			pFile.println(str);
 			pFile.println(EOF);
+			isSummary = true;
+			log.println("summary added");
 		}
 		else throw new Exception("There is already summary in the file");	
 	}
@@ -93,51 +91,32 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		log.println("auto summary added");
 	}
 	/**
-	 * TODO QA this method - THIS DOSENT WORK CORRECTLY
 	 * return if there is summary in the file, this will return true for an empty summary
 	 * @return true if had summary in the file
 	 */
 	public static boolean isSummaryInFile() {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String line = br.readLine();
-			
-			if (line == null) {
-				br.close();
-				log.println(" isSummaryInFile() return false");
-				return false;
-			}
-			if (line.startsWith(START_OF_TITLE) && line.contains(SUMMARY_TITLE)){
-				line = br.readLine();
-				line = br.readLine();
-				if ( line.contains(EOF)){
-					br.close();
-					return true;
-				}
-			}
-			br.close();
-		} catch (Exception e) 	{e.printStackTrace();}
-		return false;
+		return isSummary;
 	}
 	/**
-	 * 
 	 * @return current file of the class
 	 */
-	public static File getFile() {
-		return file;
+	public static PrintWriter getFile() {
+		return pFile;
 	}
 	/**
 	 * change the file of the all class, use carefully
 	 * @param file
-	 * @throws FileNotFoundException 
+	 * @param sum
+	 * @throws FileNotFoundException, Exception
 	 */
-	public static void setFile(File file, String sum) throws Exception {
-		pFile = new PrintWriter(file);
-		ConvertToErelBotFormat.file = file;
+	public static void setFile(PrintWriter file, String sum) throws Exception {
+		setFile(file);
 		if (!isSummaryInFile()) addSummary(sum);
 		log.println("file changed");
 	}
-	public static void setFile(File file) throws Exception {
+	public static void setFile(PrintWriter file) throws Exception {
+		pFile = new PrintWriter(file);
+		ConvertToErelBotFormat.pFile = file;
 		setFile(file,"Added by bot");		
 	}
 	/**
@@ -148,7 +127,6 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		pFile.println(START_OF_TITLE+this.getTitle());
 		pFile.println(this.getText());
 		pFile.println(EOF);
-		log.println(this.getTitle()+ "added to file");
+		log.println("\""+this.getTitle()+ "\" added to the file");
 	}
-
 }
