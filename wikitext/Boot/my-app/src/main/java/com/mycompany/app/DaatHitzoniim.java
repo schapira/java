@@ -30,16 +30,30 @@ public class DaatHitzoniim {
 		  writer.close();
 		  finish();
 	}
+	/**
+	 * niitialization of log
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
 	private static void init () throws FileNotFoundException, UnsupportedEncodingException{
 		  log = new PrintWriter("log.txt", "UTF-8");
 	}
+	/**
+	 * close log print end to console
+	 */
 	private static void finish (){
+		log.println("end");
 		log.close();
 		System.out.println("end");
 	}
+	/**
+	 * cleaning string from ",.-[...](...)"
+	 * @param infile
+	 * @return clean string
+	 */
 	private static String removeNeedlessWords (String infile){
 		String str=infile.substring(0);
-		//TODO continue here
+		log.print("removeNeedlessWords");
 		str = str.replaceAll(",", "");
 		str = str.replaceAll("\\.", "");
 		str = str.replaceAll("'", "");
@@ -47,7 +61,7 @@ public class DaatHitzoniim {
 		str = str.replaceAll("-", " ");
 		str = str.replaceAll("\\[.*?\\] ?", "");
 		str = str.replaceAll("\\(.*?\\) ?", "");
-
+		log.println(": done");
 		return str;
 		
 	}
