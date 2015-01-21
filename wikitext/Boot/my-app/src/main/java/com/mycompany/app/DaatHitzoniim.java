@@ -26,7 +26,7 @@ public class DaatHitzoniim {
 		  PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
 		  String output = doc.body().text();
 		  output = removeNeedlessWords(output);
-		  writer.println(doc.body().text());
+		  writer.println(output);
 		  writer.close();
 		  finish();
 	}
@@ -35,11 +35,19 @@ public class DaatHitzoniim {
 	}
 	private static void finish (){
 		log.close();
+		System.out.println("end");
 	}
 	private static String removeNeedlessWords (String infile){
 		String str=infile.substring(0);
 		//TODO continue here
-		
+		str = str.replaceAll(",", "");
+		str = str.replaceAll("\\.", "");
+		str = str.replaceAll("'", "");
+		str = str.replaceAll(":", "");
+		str = str.replaceAll("-", " ");
+		str = str.replaceAll("\\[.*?\\] ?", "");
+		str = str.replaceAll("\\(.*?\\) ?", "");
+
 		return str;
 		
 	}
