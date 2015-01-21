@@ -15,17 +15,17 @@ public class DaatHitzoniim {
 	 * @param args
 	 * @throws IOException 
 	 */
-	   static PrintWriter log;
+	static PrintWriter log;
 	public static void main( String[] args ) throws IOException{
 		init();
 		File inputFile = new File("hayovlim/1.html");
-		  Document doc = Jsoup.parse(inputFile, "windows-1255", "");
-		  PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
-		  String output = doc.body().text();
-		  output = removeNeedlessWords(output);
-		  writer.println(output);
-		  writer.close();
-		  finish();
+		Document doc = Jsoup.parse(inputFile, "windows-1255", "");
+		PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
+		String output = doc.body().text();
+		output = removeNeedlessWords(output);
+		writer.println(output);
+		writer.close();
+		finish();
 	}
 	/**
 	 * niitialization of log
@@ -33,7 +33,7 @@ public class DaatHitzoniim {
 	 * @throws UnsupportedEncodingException
 	 */
 	private static void init () throws FileNotFoundException, UnsupportedEncodingException{
-		  log = new PrintWriter("log.txt", "UTF-8");
+		log = new PrintWriter("log.txt", "UTF-8");
 	}
 	/**
 	 * close log print end to console
@@ -60,8 +60,8 @@ public class DaatHitzoniim {
 		str = str.replaceAll("\\(.*?\\) ?", "");
 		log.println(": done");
 		return str;
-		
+
 	}
-	
+
 
 }
