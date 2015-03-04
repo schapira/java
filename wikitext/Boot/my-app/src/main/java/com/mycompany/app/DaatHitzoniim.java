@@ -29,6 +29,7 @@ public class DaatHitzoniim {
 		fileName = fileName.substring(0, fileName.lastIndexOf('.'));
 		System.out.println(fileName);
 		ConvertToErelBotFormat page = new ConvertToErelBotFormat(fileName, body, new File("output.txt"), "ספר יובלים - הזנה אוטומטית, אור שפירא");
+		ConvertToErelBotFormat.setCategory("ספרים חיצוניים");
 		page.addToFile();
 		ConvertToErelBotFormat.close();
 	}
@@ -40,6 +41,7 @@ public class DaatHitzoniim {
 	 */
 	private static String doOnePage(File file) throws Exception  {
 		Document doc = Jsoup.parse(file, "windows-1255", "");
+		log.println(doc);
 		String output = doc.body().text();
 		output = removeNeedlessChars(output);
 		return output;
@@ -75,7 +77,7 @@ public class DaatHitzoniim {
 		str = str.replaceAll("-", " ");
 		str = str.replaceAll("\\[.*?\\] ?", "");
 		str = str.replaceAll("\\(", "\n==");
-		str = str.replaceAll("\\)", "==\n");
+		str = str.replaceAll("\\) ", "==\n");
 		log.println(": done");
 		return str;
 

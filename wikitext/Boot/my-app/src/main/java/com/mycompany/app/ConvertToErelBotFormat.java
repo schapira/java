@@ -17,19 +17,21 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	private final static String EOF = "סוףקובץ";
 	private final static String SUMMARY_TITLE = "תקציר";
 	private final static String START_OF_TITLE = "#####";
+	private final static String CATEGORY_START = "[[קטגוריה:";
+	private final static String END_OF_LINK = "]]";
 	/*-----------------------------------------------	*/
 	//STATICS
 	private static PrintWriter log;
 	private static boolean isSummary=false;
 	private static PrintWriter pFile;
+	private static String category;
 	/*----------------------------------------------*/
 	/**
 	 * basic constructor
 	 * @param title
 	 * @param text
-	 * @throws Exception 
-	 * @throws UnsupportedEncodingException 
 	 */
+
 	public ConvertToErelBotFormat(String title, String text)  {
 		super(title);
 		if(log==null)
@@ -60,7 +62,9 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		this(title, text, newFile);
 		addSummary(sum);
 	}
-	/*--------------------------------------------------*/
+	/**
+	 * close all open connections
+	 */
 	public static void close(){
 		log.println("end");
 		log.close();
@@ -112,6 +116,11 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		if (!isSummaryInFile()) addSummary(sum);
 		log.println("file changed");
 	}
+	/**
+	 * set the output file with auto summary
+	 * @param file
+	 * @throws Exception
+	 */
 	public static void setFile(PrintWriter file) throws Exception {
 		pFile = new PrintWriter(file);
 		ConvertToErelBotFormat.pFile = file;
@@ -122,9 +131,22 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	 */
 	public void addToFile(){
 		if (!isSummaryInFile())	try {addSummary();	} catch (Exception e) {e.printStackTrace();	}
+		//title
 		pFile.println(START_OF_TITLE+this.getTitle());
+		//body
 		pFile.println(this.getText());
+		//category 
+		if (category!=null  && category!="") {
+			pFile.println(CATEGORY_START + category + END_OF_LINK);
+		}
+		//end of file message
 		pFile.println(EOF);
 		log.println("\""+this.getTitle()+ "\" added to the file");
+	}
+	public static String getCategory() {
+		return category;
+	}
+	public static void setCategory(String category) {
+		ConvertToErelBotFormat.category = category;
 	}
 }
