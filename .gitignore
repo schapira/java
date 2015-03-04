@@ -76,4 +76,6 @@ tanachYomi/*.log
 tanachYomi/*.txt
 tanachYomi/bin/*
 tanachYomi/libs/*
+tanachYomi/project.properties
+
 
