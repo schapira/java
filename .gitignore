@@ -71,3 +71,9 @@ appcompat_v7
 wikitext/RemoteSystemTempFiles
 wikitext/Boot/my-app/hayovlim
 AppClassTester/*
+tanachYomi/.*
+tanachYomi/*.log
+tanachYomi/*.txt
+tanachYomi/bin/*
+tanachYomi/libs/*
+
