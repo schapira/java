@@ -1,8 +1,4 @@
-*.dat
-appcompat_v7
-.*
-wikitext/RemoteSystemTempFiles
-wikitext/Boot/my-app/hayovlim
+
 ##Generated from https://github.com/github/gitignore/blob/master/Android.gitignore
  #Built application files
 *.apk
@@ -65,3 +61,13 @@ local.properties
 .target
 # TeXlipse plugin
 .texlipse
+
+#schapira
+*.pl
+wikitext/Tosefta/src/org/*
+*.dat
+appcompat_v7
+.*
+wikitext/RemoteSystemTempFiles
+wikitext/Boot/my-app/hayovlim
+AppClassTester/*  
