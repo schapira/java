@@ -23,15 +23,28 @@ public class DaatHitzoniim {
 		close();
 	}
 	private static void doAllPages() throws Exception  {
-		File file = new File("hayovlim/1.html");
-		String body = doOnePage(file);
-		String fileName =file.getName();
-		fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-		System.out.println(fileName);
-		ConvertToErelBotFormat page = new ConvertToErelBotFormat(fileName, body, new File("output.txt"), "ספר יובלים - הזנה אוטומטית, אור שפירא");
-		ConvertToErelBotFormat.setCategory("ספרים חיצוניים");
-		page.addToFile();
+		//init of ConertToErelBotFormat
+		ConvertToErelBotFormat.init(new File("output.txt"));	
+		ConvertToErelBotFormat.addSummary("ספר יובלים - הזנה אוטומטית, אור שפירא");
+		ConvertToErelBotFormat.addCategory("ספרים חיצוניים");
+		//ConvertToErelBotFormat.addCategory("אור בוט");
+		ConvertToErelBotFormat page;
+		
+		File folder = new File("hayovlim");
+		File files[] = folder.listFiles();
+		for (File file : files){
+			//File file = new File("hayovlim/1.html");
+			String body = doOnePage(file);
+			String fileName = file.getName();
+			fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+			fileName = Utils.gimetria(Integer.parseInt(fileName));
+			fileName = "ספר היובלים/"+fileName;
+			System.out.println(fileName+"parsed");
+			page = new ConvertToErelBotFormat(fileName, body);
+			page.addToFile();
+		}
 		ConvertToErelBotFormat.close();
+		System.out.println("end");
 	}
 	/**
 	 * 

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
 /**
@@ -24,19 +25,25 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	private static PrintWriter log;
 	private static boolean isSummary=false;
 	private static PrintWriter pFile;
-	private static String category;
+	private static ArrayList<String> categories;
+	private static boolean init =false;
 	/*----------------------------------------------*/
+	public static void init(File file){
+		init = true;
+		try {pFile = new PrintWriter(file);} catch (FileNotFoundException e) {	e.printStackTrace();	}
+		if(log==null)
+			try {log = new PrintWriter("ConvertToErelBotFormat.log.txt", "UTF-8");
+			}catch (Exception e) {	e.printStackTrace();}
+		categories = new ArrayList<String>();
+	}
 	/**
 	 * basic constructor
 	 * @param title
 	 * @param text
 	 */
-
 	public ConvertToErelBotFormat(String title, String text)  {
 		super(title);
-		if(log==null)
-			try {log = new PrintWriter("ConvertToErelBotFormat.log.txt", "UTF-8");
-			}catch (Exception e) {	e.printStackTrace();}
+		if (!init) init(new File("output.txt"));
 		this.setText(text);
 	}
 	/**
@@ -60,7 +67,10 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	 */
 	public ConvertToErelBotFormat(String title, String text, File newFile,String sum) throws Exception {
 		this(title, text, newFile);
+		if (!isSummary){
 		addSummary(sum);
+		}
+		else log.println("there is already summery in file");
 	}
 	/**
 	 * close all open connections
@@ -122,9 +132,8 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 	 * @throws Exception
 	 */
 	public static void setFile(PrintWriter file) throws Exception {
+		if (pFile!=null) pFile.close();
 		pFile = new PrintWriter(file);
-		ConvertToErelBotFormat.pFile = file;
-		setFile(file,"Added by bot");		
 	}
 	/**
 	 * add the current constant to the class file
@@ -136,17 +145,20 @@ public class ConvertToErelBotFormat extends SimpleArticle {
 		//body
 		pFile.println(this.getText());
 		//category 
-		if (category!=null  && category!="") {
-			pFile.println(CATEGORY_START + category + END_OF_LINK);
+		if (categories!=null  && !categories.isEmpty()) {
+			for (String cat : categories)
+			{
+			pFile.println(CATEGORY_START + cat + END_OF_LINK);
+			}
 		}
 		//end of file message
 		pFile.println(EOF);
 		log.println("\""+this.getTitle()+ "\" added to the file");
 	}
-	public static String getCategory() {
-		return category;
+	public static ArrayList<String> getCategories() {
+		return categories;
 	}
-	public static void setCategory(String category) {
-		ConvertToErelBotFormat.category = category;
+	public static void addCategory(String category) {
+		ConvertToErelBotFormat.categories.add(category);
 	}
 }
