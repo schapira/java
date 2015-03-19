@@ -31,7 +31,6 @@ public class DaatHitzoniim {
 		ConvertToErelBotFormat.addSummary("ספריים חיצוניים הזנה אוטומטית, אור שפירא");
 		ConvertToErelBotFormat.addCategory("ספרים חיצוניים");
 		//ConvertToErelBotFormat.addCategory("אור בוט");
-		ConvertToErelBotFormat page;
 		
 		File folder = new File("hasfarim");
 		File files[] = folder.listFiles();
@@ -54,15 +53,14 @@ public class DaatHitzoniim {
 		String perek="";
 		for (Element perekE:prakim)
 		{
-			
-			
-			if (perekE.cssSelector().contains("#header-right"))
-			perek = perekE.ownText();
-			perek = perek.replaceAll("\\[.*?\\] ?", "");
-			perek = perek.replaceAll(" פרק", "");
-			System.out.println(perek + perekE.elementSiblingIndex());
-			ConvertToErelBotFormat page = new ConvertToErelBotFormat(book+"/"+perek,"");
-			page.addToFile();
+			if (perekE.cssSelector().contains("#header-right")){	
+				perek = perekE.ownText();
+				perek = perek.replaceAll("\\[.*?\\] ?", "");
+				perek = perek.replaceAll("פרק ", "");
+				ConvertToErelBotFormat page = new ConvertToErelBotFormat(book
+						+ "/" + perek, "");
+				page.addToFile();
+			}
 		}
 		String text = doc.body().text();
 		log.println(doc.body());
