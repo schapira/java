@@ -33,18 +33,19 @@ public class DaatHitzoniim {
 		File folder = new File("hayovlim");
 		File files[] = folder.listFiles();
 		for (File file : files){
-			//File file = new File("hayovlim/1.html");
 			String body = doOnePage(file);
 			String fileName = file.getName();
 			fileName = fileName.substring(0, fileName.lastIndexOf('.'));
 			fileName = Utils.gimetria(Integer.parseInt(fileName));
+			log.println(Utils.gimetria(10)+" is it 10? ");
+			System.out.println(Utils.gimetria(20));
+			System.out.println(Utils.gimetria(30));
 			fileName = "ספר היובלים/"+fileName;
-			System.out.println(fileName+"parsed");
+			log.println(fileName+"parsed");
 			page = new ConvertToErelBotFormat(fileName, body);
 			page.addToFile();
 		}
 		ConvertToErelBotFormat.close();
-		System.out.println("end");
 	}
 	/**
 	 * 
@@ -54,7 +55,6 @@ public class DaatHitzoniim {
 	 */
 	private static String doOnePage(File file) throws Exception  {
 		Document doc = Jsoup.parse(file, "windows-1255", "");
-		log.println(doc);
 		String output = doc.body().text();
 		output = removeNeedlessChars(output);
 		return output;
@@ -63,14 +63,13 @@ public class DaatHitzoniim {
 	 * Initialization of log
 	 */
 	private static void init () {
-		try {log = new PrintWriter("log.txt", "UTF-8");
+		try {log = new PrintWriter("logmain.txt", "UTF-8");
 		} catch (Exception e) {	e.printStackTrace();	} 
 	}
 	/**
 	 * close log print end to console
 	 */
 	private static void close (){
-		log.println("end");
 		log.close();
 		System.out.println("end");
 	}

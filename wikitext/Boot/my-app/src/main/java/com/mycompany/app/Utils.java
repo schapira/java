@@ -1,18 +1,25 @@
 package com.mycompany.app;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 public class Utils {
 	/**
 	 * convert long number (more then one digit) to the represented gimetria chars, 613 -> תריג
 	 * @param num
 	 * @return
+	 * @throws FileNotFoundException 
 	 */
-	public static String gimetria (int num){
+	
+	public static String gimetria (int num) throws FileNotFoundException{
+		 PrintWriter log= new PrintWriter(new File("util.log.txt")); 
 		if (num == 15) return "‏טו";
 		if (num ==16) return "טז";
-		System.out.println(num%10);
-		String rtn = singleGimatria(num%10)+"";
+		log.print(num+ " = ");
+		String rtn="";
+		if (num%10!=0)  rtn = singleGimatria(num%10)+"";
 		num =num / 10;
-		System.out.println(num);
 		if (num!=0&& num!=10)	{
 			rtn =tensGimatria(num%10)+rtn;
 		}
@@ -21,6 +28,8 @@ public class Utils {
 			if (num!=0)
 				rtn = hundredsGimatria(num)+rtn;
 		}
+		log.println(rtn+";");
+		log.close();
 		return rtn;	
 	}
 	/**
@@ -34,6 +43,7 @@ public class Utils {
 		return rtn;
 	}
 	static char tensGimatria(int num){
+		if (num==0) return '\0';
 		switch (num){
 		case 1: return 'י';
 		case 2: return 'כ';
@@ -48,6 +58,7 @@ public class Utils {
 		return '\0';
 	}
 	static char hundredsGimatria(int num){
+		if (num==0) return '\0';
 		return (char) ('ק'+num-1);
 	}
 }
