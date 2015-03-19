@@ -2,8 +2,11 @@ package com.mycompany.app;
 
 import java.io.File;
 import java.io.PrintWriter;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 /**
  * 
  * @author Or Schapira
@@ -25,26 +28,17 @@ public class DaatHitzoniim {
 	private static void doAllPages() throws Exception  {
 		//init of ConertToErelBotFormat
 		ConvertToErelBotFormat.init(new File("output.txt"));	
-		ConvertToErelBotFormat.addSummary("ספר יובלים - הזנה אוטומטית, אור שפירא");
+		ConvertToErelBotFormat.addSummary("ספריים חיצוניים הזנה אוטומטית, אור שפירא");
 		ConvertToErelBotFormat.addCategory("ספרים חיצוניים");
 		//ConvertToErelBotFormat.addCategory("אור בוט");
 		ConvertToErelBotFormat page;
 		
-		File folder = new File("hayovlim");
+		File folder = new File("hasfarim");
 		File files[] = folder.listFiles();
-		for (File file : files){
-			String body = doOnePage(file);
-			String fileName = file.getName();
-			fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-			fileName = Utils.gimetria(Integer.parseInt(fileName));
-			log.println(Utils.gimetria(10)+" is it 10? ");
-			System.out.println(Utils.gimetria(20));
-			System.out.println(Utils.gimetria(30));
-			fileName = "ספר היובלים/"+fileName;
-			log.println(fileName+"parsed");
-			page = new ConvertToErelBotFormat(fileName, body);
-			page.addToFile();
-		}
+		//for (File file : files){
+			 doOneBook(files[0]);
+			//page.addToFile();
+		//}
 		ConvertToErelBotFormat.close();
 	}
 	/**
@@ -53,12 +47,27 @@ public class DaatHitzoniim {
 	 * @return the current file in string format
 	 * @throws Exception
 	 */
-	private static String doOnePage(File file) throws Exception  {
+	private static void doOneBook(File file) throws Exception  {
 		Document doc = Jsoup.parse(file, "windows-1255", "");
-		String output = doc.body().text();
-		output = removeNeedlessChars(output);
-		return output;
+		String book = doc.body().getElementById("name").ownText();
+		Elements prakim = doc.body().getElementsContainingOwnText("פרק");
+		String perek="";
+		for (Element perekE:prakim)
+		{
+			if (perekE.cssSelector().contains("#header-right"))
+			perek = perekE.ownText();
+			perek = perek.replaceAll("\\[.*?\\] ?", "");
+			perek = perek.replaceAll(" פרק", "");
+			System.out.println(perek + perekE.elementSiblingIndex());
+			ConvertToErelBotFormat page = new ConvertToErelBotFormat(book+"/"+perek,"");
+			page.addToFile();
+		}
+		String text = doc.body().text();
+		log.println(doc.body());
+		text = removeNeedlessChars(text);
+
 	}
+
 	/**
 	 * Initialization of log
 	 */
@@ -87,7 +96,8 @@ public class DaatHitzoniim {
 		str = str.replaceAll("'", "");
 		str = str.replaceAll(":", "");
 		str = str.replaceAll("-", " ");
-		str = str.replaceAll("\\[.*?\\] ?", "");
+		//str = str.replaceAll("\\[.*?\\] ?", "");
+		str = str.replaceAll(". \\(\\.\\.","");
 		str = str.replaceAll("\\(", "\n==");
 		str = str.replaceAll("\\) ", "==\n");
 		log.println(": done");
