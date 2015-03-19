@@ -54,6 +54,8 @@ public class DaatHitzoniim {
 		String perek="";
 		for (Element perekE:prakim)
 		{
+			
+			
 			if (perekE.cssSelector().contains("#header-right"))
 			perek = perekE.ownText();
 			perek = perek.replaceAll("\\[.*?\\] ?", "");
