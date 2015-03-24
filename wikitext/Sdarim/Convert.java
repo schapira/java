@@ -10,7 +10,11 @@ import java.util.Map;
 
 public class Convert 
 {
-	
+/**
+ * 	
+ * @param args
+ * @throws IOException
+ */
 	public static void main(String[] args) throws IOException
 	{
 		
@@ -45,9 +49,6 @@ public class Convert
 	
 				out+="}}\nסוףקובץ";
 				prev =line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-				
-				
-
 			}
 		}
 		out=out.replace("|תרי עשר", "");
@@ -63,6 +64,11 @@ public class Convert
 		writer.close();
     
 	}
+	/**
+	 * 
+	 * @param in
+	 * @return
+	 */
 	public static String clean (String in)
 	{
 		String str = new String(in);
@@ -80,6 +86,10 @@ public class Convert
 		 return str;
 		
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public static HashMap<Integer, String>  dic()
 	{
 		HashMap<Integer, String> dic = new HashMap<Integer, String>();
@@ -109,6 +119,12 @@ public class Convert
 		return dic;
 		
 	}
+	/**
+	 * 
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
 	 public static String[] readLines(String filename) throws IOException {
 	        FileReader fileReader = new FileReader(filename);
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
