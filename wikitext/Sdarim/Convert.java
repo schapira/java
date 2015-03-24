@@ -48,6 +48,7 @@ public class Convert
 				else {
 					out+=title;
 					title = makeTitle(book, seder);
+					seder++;
 					current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
 					out+=current;
 					out+="}}\n";
