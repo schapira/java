@@ -49,14 +49,20 @@ public class Convert
 					out+=title;
 					title = makeTitle(book, seder);
 					seder++;
-					current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-					out+=current;
+					current="|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
+					current=current.replaceAll("ב,|","").replaceAll("א,|","")
+							.replaceAll("עזר|", "")
+							.replaceAll("נחמיה,|", "")
+							.replaceAll("\\|\\|", "\\|");
+					System.out.println(current);
+				//	current = prev +current;
+					out+=prev + current;
 					out+="}}\n";
 					out+="[[קטגוריה:סדרים בנ\"ך]]";
 					out+= "\nסוףקובץ";
 				}
-				
 				prev =line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
+				
 			}
 		}
 		out=out.replace("|תרי עשר", "");
@@ -89,8 +95,8 @@ public class Convert
 	{
 		String str = new String(in);
 		
-	//	str = str.replace("עזרא", "");
-	//	str = str.replace("נחמיה", "");
+		str = str.replace("עזרא", "");
+		str = str.replace("נחמיה", "");
 		str = str.replace("הושע", "");
 		str = str.replace("יואל", "");
 		str = str.replace("עמוס", "");

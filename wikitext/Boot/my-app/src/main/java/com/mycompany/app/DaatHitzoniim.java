@@ -89,14 +89,16 @@ public class DaatHitzoniim {
 		String str=infile.substring(0);
 		log.print("removeNeedlessWords");
 		str = str.replaceAll(",", "");
+		str.replaceAll("\\. \\(([^)]*)\\)", ". \n==$1==\n"); //ANSWER from stackoverflow
 		str = str.replaceAll("\\.", "");
 		str = str.replaceAll("'", "");
 		str = str.replaceAll(":", "");
 		str = str.replaceAll("-", " ");
 		//str = str.replaceAll("\\[.*?\\] ?", "");
 		str = str.replaceAll(". \\(\\.\\.","");
-		str = str.replaceAll("\\(", "\n==");
-		str = str.replaceAll("\\) ", "==\n");
+
+//		str = str.replaceAll("\\(", "\n==");
+	//	str = str.replaceAll("\\) ", "==\n");
 		log.println(": done");
 		return str;
 	}
