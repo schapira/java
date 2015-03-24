@@ -15,17 +15,19 @@ public class Convert
  * @param args
  * @throws IOException
  */
+	final static Map<Integer, String> dic = dic();
 	public static void main(String[] args) throws IOException
 	{
 		
-		PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
 		String[] lines = readLines("input.txt");
-		Map<Integer, String> dic = dic();
+
 		String book="";
 		String out="";
 		int seder=0;
 		String prev="";
 		String current="";
+		String title="";
 		for (String line:lines)
 		{
 		//	System.out.println(line);
@@ -38,16 +40,21 @@ public class Convert
 			else
 			{
 				out+="\n";
-				out += "#####";//כותרת
-				out+=book+" סדר "+dic.get(seder)+"\n";
-				seder++;
-				out+="{{דף סדר|";  ///תוכן
-				out+=book+"|";
+				if (title=="")
+				{
+					title+=makeTitle(book, seder);	
+					seder++;
+				}
+				else {
+					out+=title;
+					title = makeTitle(book, seder);
+					current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
+					out+=current;
+					out+="}}\n";
+					out+="[[קטגוריה:סדרים בנ\"ך]]";
+					out+= "\nסוףקובץ";
+				}
 				
-				current=prev+"|"+line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
-				out+=current;
-	
-				out+="}}\nסוףקובץ";
 				prev =line.substring(line.indexOf(")")+2, line.length()).replace(" ", "|");
 			}
 		}
@@ -63,6 +70,14 @@ public class Convert
 		writer.println(out);
 		writer.close();
     
+	}
+	private static String makeTitle(String book, int seder)
+	{
+		String out = "#####";//כותרת
+		out+=book+" סדר "+dic.get(seder)+"\n";
+		out+="{{דף סדר|";  ///תוכן
+		out+=book+"|";	
+		return out;
 	}
 	/**
 	 * 
