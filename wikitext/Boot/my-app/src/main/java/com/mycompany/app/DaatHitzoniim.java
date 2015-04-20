@@ -23,7 +23,7 @@ public class DaatHitzoniim {
 	public static void main( String[] args ) throws Exception{
 		init();
 		doAllPages();
-		close();
+		close();	
 	}
 	private static void doAllPages() throws Exception  {
 		//init of ConertToErelBotFormat
@@ -34,7 +34,8 @@ public class DaatHitzoniim {
 		File folder = new File("hasfarim");
 		File files[] = folder.listFiles();
 		//for (File file : files){
-			 doOneBook(files[0]);
+			 doOneBook(files[1]);
+			 System.out.println(files[1].getPath());
 			//page.addToFile();
 		//}
 		ConvertToErelBotFormat.close();
@@ -48,21 +49,28 @@ public class DaatHitzoniim {
 	private static void doOneBook(File file) throws Exception  {
 		Document doc = Jsoup.parse(file, "windows-1255", "");
 		String book = doc.body().getElementById("name").ownText();
-		Elements prakim = doc.body().getElementsContainingOwnText("פרק");
+		Elements prakim = doc.body().getElementsByClass("perek");
+		prakim.remove(0);//remove hakdama
 		String perek="";
+		String txt="";
+		
 		for (Element perekE:prakim)
 		{
-			if (perekE.cssSelector().contains("#header-right")){	
-				perek = perekE.ownText();
+			 perek = perekE.text();
 				perek = perek.replaceAll("\\[.*?\\] ?", "");
 				perek = perek.replaceAll("פרק ", "");
-				ConvertToErelBotFormat page = new ConvertToErelBotFormat(book	+ "/" + perek, ""); //TODO: adding the page content
+				System.out.println(perekE.siblingElements().size());
+				//System.out.println(perekE.siblingElements().first().text());
+				for (Element content:perekE.siblingElements()) {
+					txt+=content.text();
+				}
+				 System.out.println(txt);
+				 //txt = removeNeedlessChars(txt);
+				// txt = parsePsukim(txt);
+				ConvertToErelBotFormat page = new ConvertToErelBotFormat(book	+ "/" + perek, txt); //TODO: adding the page content
 				page.addToFile();
-			}
+
 		}
-		String text = doc.body().text();
-		log.println(doc.body());
-		text = removeNeedlessChars(text);
 	}
 
 	/**
@@ -89,17 +97,22 @@ public class DaatHitzoniim {
 		String str=infile.substring(0);
 		log.print("removeNeedlessWords");
 		str = str.replaceAll(",", "");
-		str.replaceAll("\\. \\(([^)]*)\\)", ". \n==$1==\n"); //ANSWER from stackoverflow
+		//str.replaceAll("\\. \\(([^)]*)\\)", ". \n==$1==\n"); //ANSWER from stackoverflow http://stackoverflow.com/questions/29143747/replace-brackets-only-when-they-are-after-a-dot
 		str = str.replaceAll("\\.", "");
 		str = str.replaceAll("'", "");
 		str = str.replaceAll(":", "");
 		str = str.replaceAll("-", " ");
-		//str = str.replaceAll("\\[.*?\\] ?", "");
-		str = str.replaceAll(". \\(\\.\\.","");
+		str = str.replaceAll("\\[.*?\\] ?", "");
+		//str = str.replaceAll(". \\(\\.\\.","");
 
 //		str = str.replaceAll("\\(", "\n==");
 	//	str = str.replaceAll("\\) ", "==\n");
 		log.println(": done");
+		return str;
+	}
+	private static String parsePsukim(String inTxt){
+		String str = inTxt;
+		//str.replaceAll("\\(([^)]*)\\)", ". \n==$1==\n"); 
 		return str;
 	}
 }
